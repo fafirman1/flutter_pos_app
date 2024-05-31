@@ -109,7 +109,7 @@ class _SettingPageState extends State<SettingPage> {
                                 style: TextButton.styleFrom(
                                   foregroundColor: Colors.red, // Warna teks merah
                                   ),
-                                child: const Text('Logout'),
+                                child: const Text('Keluar'),
                               ),
                             ],
                           );
