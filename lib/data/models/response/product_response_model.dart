@@ -31,7 +31,8 @@ class ProductResponseModel {
 }
 
 class Product {
-    final int id;
+    final int? id;
+    final int? productId;
     final String name;
     final int price;
     final int stock;
@@ -41,7 +42,8 @@ class Product {
     final DateTime? updatedAt;
 
     Product({
-        required this.id,
+        this.id,
+        this.productId,
         required this.name,
         required this.price,
         required this.stock,
@@ -57,11 +59,12 @@ class Product {
 
     factory Product.fromMap(Map<String, dynamic> json) => Product(
         id: json["id"],
+        productId: json["product_id"],
         name: json["name"],
         price: json["price"],
         stock: json["stock"],
         category: json["category"],
-        image: json["image"],
+        image: json["image"]??'',
         // createdAt: DateTime.parse(json["created_at"]),
         // updatedAt: DateTime.parse(json["updated_at"]),
     );
@@ -72,6 +75,15 @@ class Product {
         "stock": stock,
         "category": category,
         "image": image,
+        "product_id":productId,
+    };
+    Map<String, dynamic> toLocalMap() => {
+        "name": name,
+        "price": price,
+        "stock": stock,
+        "category": category,
+        "image": image,
+        "product_id":id,
     };
 
   @override

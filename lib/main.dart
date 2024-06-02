@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pos_app/data/datasources/auth_local_datasource.dart';
 import 'package:flutter_pos_app/data/datasources/auth_remote_datasource.dart';
+import 'package:flutter_pos_app/data/datasources/order_remote_datasource.dart';
 import 'package:flutter_pos_app/data/datasources/product_remote_datasource.dart';
 import 'package:flutter_pos_app/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:flutter_pos_app/presentation/auth/pages/login_page.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_pos_app/presentation/home/bloc/checkout/checkout_bloc.da
 import 'package:flutter_pos_app/presentation/home/bloc/logout/logout_bloc.dart';
 import 'package:flutter_pos_app/presentation/home/pages/dashboard_page.dart';
 import 'package:flutter_pos_app/presentation/order/bloc/order/order_bloc.dart';
+import 'package:flutter_pos_app/presentation/setting/bloc/bloc/sync_order_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'core/constants/colors.dart';
@@ -45,6 +47,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => HistoryBloc()
+        ),
+        BlocProvider(
+          create: (context)=> SyncOrderBloc(OrderRemoteDatasource())
         )
       ],
       child: MaterialApp(

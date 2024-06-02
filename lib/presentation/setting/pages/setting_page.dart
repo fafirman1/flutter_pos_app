@@ -4,6 +4,7 @@ import 'package:flutter_pos_app/core/components/spaces.dart';
 import 'package:flutter_pos_app/core/constants/colors.dart';
 import 'package:flutter_pos_app/data/datasources/product_local_datasource.dart';
 import 'package:flutter_pos_app/presentation/home/bloc/product/product_bloc.dart';
+import 'package:flutter_pos_app/presentation/setting/bloc/bloc/sync_order_bloc.dart';
 
 import '../../../data/datasources/auth_local_datasource.dart';
 import '../../auth/pages/login_page.dart';
@@ -24,30 +25,35 @@ class _SettingPageState extends State<SettingPage> {
         title: const Center(child: Text('Setting')),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SpaceHeight(50),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               BlocConsumer<ProductBloc, ProductState>(
                 listener: (context, state) {
                   state.maybeMap(
-                    orElse: (){},
+                    orElse: () {},
                     success: (_) async {
                       await ProductLocalDatasource.instance.removeAllProduct();
-                      await ProductLocalDatasource.instance.insertAllProduct(_.products.toList());
+                      await ProductLocalDatasource.instance
+                          .insertAllProduct(_.products.toList());
                       // ignore: use_build_context_synchronously
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(backgroundColor: AppColors.primary, content: Text('Sync Data Success'))
-                      );
-                    },);
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          backgroundColor: AppColors.primary,
+                          content: Text('Sync Data Product Success')));
+                    },
+                  );
                 },
                 builder: (context, state) {
                   return state.maybeWhen(
                     orElse: () {
                       return ElevatedButton(
                         onPressed: () {
-                          context.read<ProductBloc>().add(const ProductEvent.fetch());
+                          context
+                              .read<ProductBloc>()
+                              .add(const ProductEvent.fetch());
                         },
                         child: const Text('Sync Data'),
                       );
@@ -62,7 +68,48 @@ class _SettingPageState extends State<SettingPage> {
               ),
             ],
           ),
-          // const Divider(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              BlocConsumer<SyncOrderBloc, SyncOrderState>(
+                listener: (context, state) {
+                  state.maybeMap(
+                    orElse: () {},
+                    success: (_) async {
+                      // await ProductLocalDatasource.instance.removeAllProduct();
+                      // await ProductLocalDatasource.instance
+                      //     .insertAllProduct(_.products.toList());
+                      // ignore: use_build_context_synchronously
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          backgroundColor: AppColors.primary,
+                          content: Text('Sync Data Order Success'),
+                      ),);
+                    },
+                  );
+                },
+                builder: (context, state) {
+                  return state.maybeWhen(
+                    orElse: () {
+                      return ElevatedButton(
+                        onPressed: () {
+                          context
+                              .read<SyncOrderBloc>()
+                              .add(const SyncOrderEvent.sendOrder());
+                        },
+                        child: const Text('Sync Data Order'),
+                      );
+                    },
+                    loading: () {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
+          const Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -93,22 +140,25 @@ class _SettingPageState extends State<SettingPage> {
                         builder: (BuildContext context) {
                           return AlertDialog(
                             title: const Text('Confirm Logout'),
-                            content: const Text('Are you sure you want to logout?'),
+                            content:
+                                const Text('Are you sure you want to logout?'),
                             actions: <Widget>[
                               TextButton(
                                 onPressed: () {
-                                  Navigator.of(context).pop(); // Tutup dialog
+                                  Navigator.of(context).pop();
                                 },
                                 child: const Text('Cancel'),
                               ),
                               TextButton(
                                 onPressed: () {
-                                  Navigator.of(context).pop(); // Tutup dialog
-                                  context.read<LogoutBloc>().add(const LogoutEvent.logout());
+                                  Navigator.of(context).pop();
+                                  context
+                                      .read<LogoutBloc>()
+                                      .add(const LogoutEvent.logout());
                                 },
                                 style: TextButton.styleFrom(
-                                  foregroundColor: Colors.red, // Warna teks merah
-                                  ),
+                                  foregroundColor: Colors.red,
+                                ),
                                 child: const Text('Keluar'),
                               ),
                             ],
@@ -122,8 +172,6 @@ class _SettingPageState extends State<SettingPage> {
               ),
             ],
           ),
-
-          // const Divider(),
         ],
       ),
     );
