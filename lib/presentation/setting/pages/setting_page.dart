@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_pos_app/core/components/spaces.dart';
 import 'package:flutter_pos_app/core/constants/colors.dart';
+import 'package:flutter_pos_app/core/extensions/build_context_ext.dart';
 import 'package:flutter_pos_app/data/datasources/product_local_datasource.dart';
 import 'package:flutter_pos_app/presentation/home/bloc/product/product_bloc.dart';
 import 'package:flutter_pos_app/presentation/setting/bloc/bloc/sync_order_bloc.dart';
+import 'package:flutter_pos_app/presentation/setting/pages/manage_printer_page.dart';
 
 import '../../../data/datasources/auth_local_datasource.dart';
 import '../../auth/pages/login_page.dart';
@@ -28,6 +29,15 @@ class _SettingPageState extends State<SettingPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: (){
+                  context.push(const ManagePrinterPage());
+                }, 
+                child: const Text('Manage Printer'))],
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

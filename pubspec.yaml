@@ -33,6 +33,7 @@ dependencies:
   cached_network_image: ^3.3.1
   cupertino_icons: ^1.0.6
   dartz: ^0.10.1
+  esc_pos_utils_plus: ^2.0.3
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.5
@@ -42,6 +43,7 @@ dependencies:
   http: ^1.2.1
   image_picker: ^1.1.1
   intl: ^0.19.0
+  print_bluetooth_thermal: ^1.0.9
   shared_preferences: ^2.2.3
   sqflite: ^2.3.3+1
 
