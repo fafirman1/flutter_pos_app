@@ -19,6 +19,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+  String selectedRole = 'KASIR';
+
+  final List<String> roles = ['ADMIN', 'KASIR'];
 
   @override
   void dispose() {
@@ -44,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
           const SpaceHeight(24.0),
           const Center(
             child: Text(
-              "POS Batch 11",
+              "POS MOKO WARDAH PARFUM",
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
@@ -73,6 +76,32 @@ class _LoginPageState extends State<LoginPage> {
             controller: passwordController,
             label: 'Password',
             obscureText: true,
+          ),
+          const SpaceHeight(24.0),
+          InputDecorator(
+            decoration: InputDecoration(
+              labelText: 'Role',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            ),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<String>(
+                value: selectedRole,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    selectedRole = newValue!;
+                  });
+                },
+                items: roles.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+            ),
           ),
           const SpaceHeight(24.0),
           BlocListener<LoginBloc, LoginState>(
@@ -108,6 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                               LoginEvent.login(
                                 email: usernameController.text,
                                 password: passwordController.text,
+                                roles: selectedRole, // Add role here
                               ),
                             );
                       },

@@ -46,14 +46,6 @@ class _PaymentQrisDialogState extends State<PaymentQrisDialog> {
             child:  Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // SizedBox(
-                //   width: 256.0,
-                //   height: 256.0,
-                //   child: QrImageView(
-                //     data: 's.id/batch11',
-                //     version: QrVersions.auto,
-                //   ),
-                // ),
                 Container(
                   width: 256,
                   height: 256,

@@ -8,12 +8,14 @@ class AuthRemoteDatasource{
   Future<Either<String, AuthResponseModel>> login(
     String email,
     String password,
+    String roles,
   ) async {
     final response = await http.post(
       Uri.parse('${Variables.baseUrl}/api/login'),
       body: {
         'email':email,
         'password':password,
+        'roles': roles,
       },
     );
     if (response.statusCode == 200) {

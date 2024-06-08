@@ -13,8 +13,15 @@ import '../../../data/dataoutputs/cwb_print.dart';
 import '../../home/pages/dashboard_page.dart';
 import '../bloc/order/order_bloc.dart';
 
-class PaymentSuccessDialog extends StatelessWidget {
-  const PaymentSuccessDialog({super.key});
+class PaymentSuccessDialog extends StatefulWidget {
+  const PaymentSuccessDialog({Key? key}) : super(key: key);
+
+  @override
+  _PaymentSuccessDialogState createState() => _PaymentSuccessDialogState();
+}
+
+class _PaymentSuccessDialogState extends State<PaymentSuccessDialog> {
+  bool _isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +45,9 @@ class PaymentSuccessDialog extends StatelessWidget {
         builder: (context, state) {
           return state.maybeWhen(
             orElse: () => const SizedBox.shrink(),
-            success:(data, qty, total, paymentType, nominal, idKasir, namaKasir) {
+            success: (data, qty, total, paymentType, nominal, idKasir, namaKasir) {
               context.read<CheckoutBloc>().add(const CheckoutEvent.started());
-              
+
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,16 +77,19 @@ class PaymentSuccessDialog extends StatelessWidget {
                     label: 'WAKTU PEMBAYARAN',
                     value: DateTime.now().toFormattedTime(),
                   ),
-                  const SpaceHeight(40.0),
+    
+                  const SpaceHeight(20.0),
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Flexible(
                         child: Button.filled(
-                          onPressed: () {
-                            context.read<OrderBloc>().add(const OrderEvent.started());
-                            context.pushReplacement(const DashboardPage());
-                          },
+                          onPressed: _isChecked
+                              ? () {
+                                  context.read<OrderBloc>().add(const OrderEvent.started());
+                                  context.pushReplacement(const DashboardPage());
+                                }
+                              : () {}, // No-op function
                           label: 'Selesai',
                           fontSize: 13,
                         ),
@@ -89,7 +99,7 @@ class PaymentSuccessDialog extends StatelessWidget {
                         child: Button.outlined(
                           onPressed: () async {
                             final printValue = await CwbPrint.instance.printOrder(data, qty, total, paymentType, nominal, namaKasir);
-                             await PrintBluetoothThermal.writeBytes(printValue);
+                            await PrintBluetoothThermal.writeBytes(printValue);
                           },
                           label: 'Print',
                           icon: Assets.icons.print.svg(),
@@ -98,15 +108,30 @@ class PaymentSuccessDialog extends StatelessWidget {
                       ),
                     ],
                   ),
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: _isChecked,
+                        onChanged: (value) {
+                          setState(() {
+                            _isChecked = value ?? false;
+                          });
+                        },
+                      ),
+                      const Text('Printed'),
+                    ],
+                  ),
                 ],
               );
-            },);
-          
+            },
+          );
         },
       ),
     );
   }
 }
+
+
 
 class _LabelValue extends StatelessWidget {
   final String label;

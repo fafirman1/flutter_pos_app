@@ -21,28 +21,14 @@ class Orderpage extends StatefulWidget {
 
 class _OrderpageState extends State<Orderpage> {
   final indexValue = ValueNotifier(0);
-  // final List<OrderModel> orders = [
-  //   OrderModel(
-  //     image: Assets.images.f1.path,
-  //     name: 'Nutty Oat Latte',
-  //     price: 39000,
-  //   ),
-  //   OrderModel(
-  //     image: Assets.images.f2.path,
-  //     name: 'Iced Latte',
-  //     price: 24000,
-  //   ),
-  // ];
+
 
   List<OrderItem> orders =[];
 
   int totalPrice=0;
 
   int calculateTotalPrice(List<OrderItem> orders) {
-    // int totalPrice = 0;
-    // for (final order in orders) {
-    //   totalPrice += order.price;
-    // }
+
     return orders.fold(0, (previousValue, element) => previousValue + element.product.price * element.quantity);
   }
 
@@ -59,12 +45,6 @@ class _OrderpageState extends State<Orderpage> {
       appBar: AppBar(
         title: const Text('Order Detail'),
         centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Assets.icons.delete.svg(),
-          ),
-        ],
       ),
       body: BlocBuilder<CheckoutBloc, CheckoutState>(
         builder: (context, state) {
@@ -90,7 +70,6 @@ class _OrderpageState extends State<Orderpage> {
                   data: data[index],
                   onDeleteTap: () {
                     orders.removeAt(index);
-                    // setState(() {});
                   },
                 ),
               );

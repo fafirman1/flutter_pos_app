@@ -75,31 +75,6 @@ class _PaymentCashDialogState extends State<PaymentCashDialog> {
             },
           ),
           const SpaceHeight(16.0),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: [
-          //     Button.filled(
-          //       onPressed: () {},
-          //       label: 'Uang Pas',
-          //       disabled: true,
-          //       textColor: AppColors.primary,
-          //       fontSize: 13.0,
-          //       width: 112.0,
-          //       height: 50.0,
-          //     ),
-          //     const SpaceWidth(4.0),
-          //     Flexible(
-          //       child: Button.filled(
-          //         onPressed: () {},
-          //         label: price.currencyFormatRp,
-          //         disabled: true,
-          //         textColor: AppColors.primary,
-          //         fontSize: 13.0,
-          //         height: 50.0,
-          //       ),
-          //     ),
-          //   ],
-          // ),
           const SpaceHeight(30.0),
           BlocConsumer<OrderBloc, OrderState>(
             listener: (context, state) {
@@ -113,10 +88,8 @@ class _PaymentCashDialogState extends State<PaymentCashDialog> {
                     totalQuantity: qty, 
                     totalPrice: total, 
                     idKasir: idKasir, 
-                    namaKasir: namaKasir, 
-                    //transactiion time
-                    transactionTime: DateFormat('yyy-MM-ddTHH:mm:ss')
-                        .format(DateTime.now()) ,
+                    namaKasir: namaKasir,
+                    transactionTime: DateFormat('yyy-MM-ddTHH:mm:ss').format(DateTime.now()) ,
                     isSync: false
                     );
                   ProductLocalDatasource.instance.saveOrder(orderModel);
@@ -136,11 +109,6 @@ class _PaymentCashDialogState extends State<PaymentCashDialog> {
                   context
                   .read<OrderBloc>()
                   .add(OrderEvent.addNominalBayar(priceController!.text.toIntegerFromText));
-                  // context.pop();
-                  // showDialog(
-                  //   context: context,
-                  //   builder: (context) => const PaymentSuccessDialog(),
-                  // );
                 },
                 label: 'Proses',
               );
@@ -156,3 +124,4 @@ class _PaymentCashDialogState extends State<PaymentCashDialog> {
     );
   }
 }
+

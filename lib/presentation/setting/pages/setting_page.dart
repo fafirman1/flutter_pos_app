@@ -86,10 +86,6 @@ class _SettingPageState extends State<SettingPage> {
                   state.maybeMap(
                     orElse: () {},
                     success: (_) async {
-                      // await ProductLocalDatasource.instance.removeAllProduct();
-                      // await ProductLocalDatasource.instance
-                      //     .insertAllProduct(_.products.toList());
-                      // ignore: use_build_context_synchronously
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           backgroundColor: AppColors.primary,
                           content: Text('Sync Data Order Success'),

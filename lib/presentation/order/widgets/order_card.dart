@@ -75,11 +75,9 @@ class OrderCard extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              if (data.quantity > 1) {
+                              if (data.quantity > 0) {
                                 context.read<CheckoutBloc>().add(
                                 CheckoutEvent.removeCheckout(data.product));
-                                // data.quantity--;
-                                // setState(() {});
                               }
                             },
                             child: Container(
@@ -100,8 +98,6 @@ class OrderCard extends StatelessWidget {
                             onTap: () {
                               context.read<CheckoutBloc>().add(
                                 CheckoutEvent.addCheckout(data.product));
-                              // data.quantity++;
-                              // setState(() {});
                             },
                             child: Container(
                               color: AppColors.white,
@@ -118,16 +114,6 @@ class OrderCard extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 16.0),
-          child: IconButton(
-            onPressed: onDeleteTap,
-            icon: const Icon(
-              Icons.highlight_off,
-              color: AppColors.primary,
-            ),
           ),
         ),
       ],
