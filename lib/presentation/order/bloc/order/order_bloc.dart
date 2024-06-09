@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_pos_app/data/datasources/auth_local_datasource.dart';
+import 'package:flutter_pos_app/data/datasources/product_remote_datasource.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../home/models/order_item.dart';
@@ -9,6 +10,7 @@ part 'order_state.dart';
 part 'order_bloc.freezed.dart';
 
 class OrderBloc extends Bloc<OrderEvent, OrderState> {
+  final productRemoteDatasource = ProductRemoteDatasource();
   OrderBloc() : super(const _Success([],0,0,'',0,0,'')) {
     on<_AddPaymentMethod>((event, emit) async {
       final userData = await AuthLocalDatasource().getAuthData();
@@ -26,9 +28,14 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       ));
     });
 
-    on<_AddNominalBayar>((event, emit) {
+    on<_AddNominalBayar>((event, emit) async {
       var currentStates = state as _Success;
       emit(const _loading());
+       for (var i = 0; i < currentStates.products.length; i++) {
+        final productId = currentStates.products[i].product.productId;
+        final qty = currentStates.products[i].quantity;
+        await productRemoteDatasource.updateStock(productId!, qty);
+      }
       emit(_Success(
         currentStates.products, 
         currentStates.totalQuantity, 
