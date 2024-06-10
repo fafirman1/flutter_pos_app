@@ -115,21 +115,22 @@ class _HomePageState extends State<HomePage> {
               builder: (context, value, _) => Row(
                 children: [
                   MenuButton(
-                    iconPath: Assets.icons.allCategories.path,
+                    // iconPath: Assets.icons.allCategories.path,
+                    iconPath: 'assets/icons/fresh.png',
                     label: 'Semua',
                     isActive: value == 0,
                     onPressed: () => onCategoryTap(0),
                   ),
                   const SpaceWidth(10.0),
                   MenuButton(
-                    iconPath: Assets.icons.allCategories.path,
+                    iconPath: 'assets/icons/fresh.png',
                     label: 'Fresh',
                     isActive: value == 1,
                     onPressed: () => onCategoryTap(1),
                   ),
                   const SpaceWidth(10.0),
                   MenuButton(
-                    iconPath: Assets.icons.drink.path,
+                    iconPath: 'assets/icons/sweet.png',
                     label: 'Sweet',
                     isActive: value == 2,
                     onPressed: () => onCategoryTap(2),

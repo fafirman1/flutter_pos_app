@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_pos_app/data/datasources/auth_local_datasource.dart';
 import 'package:flutter_pos_app/data/models/response/product_response_model.dart';
 
-import '../models/response/add_product_response_model.dart';
 
 class ProductRemoteDatasource {
   Future<Either<String, ProductResponseModel>> getProducts() async{

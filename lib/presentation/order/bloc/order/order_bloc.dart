@@ -31,11 +31,11 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     on<_AddNominalBayar>((event, emit) async {
       var currentStates = state as _Success;
       emit(const _loading());
-       for (var i = 0; i < currentStates.products.length; i++) {
-        final productId = currentStates.products[i].product.productId;
-        final qty = currentStates.products[i].quantity;
-        await productRemoteDatasource.updateStock(productId!, qty);
-      }
+      //  for (var i = 0; i < currentStates.products.length; i++) {
+      //   final productId = currentStates.products[i].product.productId;
+      //   final qty = currentStates.products[i].quantity;
+      //   await productRemoteDatasource.updateStock(productId!, qty);
+      // }
       emit(_Success(
         currentStates.products, 
         currentStates.totalQuantity, 
