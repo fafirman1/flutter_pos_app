@@ -54,26 +54,26 @@ class ProductCard extends StatelessWidget {
               Text(
                 data.name,
                 style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w800,
                 ),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
-              const SpaceHeight(8.0),
-              Text(
-                data.category,
-                style: const TextStyle(
-                  color: AppColors.grey,
-                  fontSize: 12,
-                ),
-              ),
+              // const SpaceHeight(8.0),
+              // Text(
+              //   data.category,
+              //   style: const TextStyle(
+              //     color: AppColors.grey,
+              //     fontSize: 12,
+              //   ),
+              // ),
               const SpaceHeight(8.0),
               Text(
                 'Stock : ${data.stock}',
                 style: const TextStyle(
                   color: AppColors.grey,
-                  fontSize: 12,
+                  fontSize: 10,
                 ),
               ),
               const SpaceHeight(8.0),
